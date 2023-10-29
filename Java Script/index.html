@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js exercicio</title>
+</head>
+<body>
+    <script>
+        var clientes = [
+                {
+                  id: 1,
+                  nome: "Luis Santos Silveira",
+                  idade: 18
+                },
+                {
+                  id: 2,
+                  nome: "Ricardo Lopes Alves",
+                  idade: 30
+                },
+                {
+                  id: 3,
+                  nome: "Gustavo Silva Junior",
+                  idade: 26
+                }
+            ];
+
+        var numero = "5(1)9-876-543-21";
+        //numero = formataNumero(numero);
+        //console.log(numero);
+
+        function formataNumero(numero){//(XX)_X_XXXX-XXXX
+            numero = limparCaracteresEspeciais(numero);
+            let ddd = trechoString(numero,0,1);
+            let primeiros4 = trechoString(numero,3,6);
+            let restante = trechoString(numero,7,numero.length-1);
+            
+            let formated = `(${ddd})_${numero[0]}_${primeiros4}-${restante}`;
+            return formated
+        }
+
+        function limparCaracteresEspeciais(string){
+            var regex = /[-()]/g;
+		    string = string.replace(regex, "");
+            return string
+        }
+
+        function trechoString(str,inicio,fim){
+            inicio = typeof inicio == "string" ? str.indexOf(inicio) : inicio;
+            fim = typeof fim == "string" ? str.indexOf(fim) : fim;
+            //console.log(inicio,fim);
+            if(inicio<fim){
+                let trecho = '';
+                for(i = inicio; i<=fim;i++){
+                    trecho += str[i];
+                }
+                return trecho;
+            }
+            return "";
+        }
+
+        function logUser(user){
+            let primeiroNome = trechoString(user.nome,0," ");
+            let ultimoNome = getLastName(user.nome);
+            return `${ultimoNome}, ${primeiroNome}`;
+        }
+
+        function getLastName(string){
+            while(string.indexOf(" ") != -1){
+                 string = string.replace(trechoString(string,0," "),"");
+            }
+            return string
+        }
+        
+        logUser(clientes[2]);
+
+    </script>
+</body>
+</html>
