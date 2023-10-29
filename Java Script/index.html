@@ -26,8 +26,10 @@
             ];
 
         var numero = "5(1)9-876-543-21";
-        //numero = formataNumero(numero);
-        //console.log(numero);
+        numero = formataNumero(numero);
+        console.log(numero);
+
+        clientes.forEach((cliente) =>{logUser(cliente)});
 
         function formataNumero(numero){//(XX)_X_XXXX-XXXX
             numero = limparCaracteresEspeciais(numero);
@@ -62,7 +64,7 @@
         function logUser(user){
             let primeiroNome = trechoString(user.nome,0," ");
             let ultimoNome = getLastName(user.nome);
-            return `${ultimoNome}, ${primeiroNome}`;
+            console.log(`${ultimoNome}, ${primeiroNome}`);
         }
 
         function getLastName(string){
@@ -71,8 +73,6 @@
             }
             return string
         }
-        
-        logUser(clientes[2]);
 
     </script>
 </body>
