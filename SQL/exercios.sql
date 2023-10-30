@@ -54,8 +54,21 @@ VALUES (id_Responsavel_seq.NEXTVAL,'Brenda');
 INSERT INTO PARENTESCO(id,ID_RESPONSAVEL,ID_ALUNO,PARENTESCO)
 VALUES(id_parentesco_seq.NEXTVAL,2,1,'mãe'); 
 
-SELECT aluno.nome,parentesco,p1.nome
+SELECT 
+    aluno.nome, 
+    (SELECT MAX(res.nome) 
+    FROM responsavel res
+    INNER JOIN parentesco pa ON pa.id_responsavel = res.id
+    ) AS nome2,
+    
+    (SELECT MAX(pa.parentesco) 
+        FROM responsavel res
+        INNER JOIN parentesco pa ON pa.id_responsavel = res.id
+        ) AS parentesco2,
+    p1.nome,
+    parentesco.parentesco
 FROM ALUNO 
+
 INNER JOIN parentesco ON parentesco.id_aluno = aluno.id
 INNER JOIN responsavel p1 ON parentesco.id_responsavel = p1.id
 
