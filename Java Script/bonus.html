@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bônus</title>
+</head>
+<body>
+    <script>
+        async function a() {
+            b();//não faz nada
+            await c();//loga um c
+            await d();//loga um d
+            alertUser("a");
+        }
+        
+        a();
+        
+        function b() {
+            return;// a chamada da função não ocorre, porque está depois do return
+            alertUser("b");
+        }
+        
+        function c() {
+            return new Promise((resolve) => {
+            alertUser("c");
+            resolve();
+            });
+        }
+        
+        function d() {
+            return new Promise((resolve) => {
+            alertUser("d");//aqui não tem um resolve
+            });
+        }
+        
+        function alertUser(message) {
+            console.log("A função é: " + message);
+        }
+    </script>
+</body>
+</html>
