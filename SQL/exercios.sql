@@ -56,23 +56,28 @@ VALUES(id_parentesco_seq.NEXTVAL,2,1,'mãe');
 
 SELECT 
     aluno.nome, 
-    (SELECT MAX(res.nome) 
-    FROM responsavel res
-    INNER JOIN parentesco pa ON pa.id_responsavel = res.id
-    ) AS nome2,
-    
-    (SELECT MAX(pa.parentesco) 
-        FROM responsavel res
-        INNER JOIN parentesco pa ON pa.id_responsavel = res.id
-        ) AS parentesco2,
-    p1.nome,
-    parentesco.parentesco
-FROM ALUNO 
+    (SELECT MAX(pai.nome) 
+    FROM responsavel pai
+    INNER JOIN parentesco pai_parentesco ON pai_parentesco.id_responsavel = pai.id
+    ) AS responsavel,
 
-INNER JOIN parentesco ON parentesco.id_aluno = aluno.id
-INNER JOIN responsavel p1 ON parentesco.id_responsavel = p1.id
+    (SELECT MAX(parentesco_pai.parentesco)
+     FROM parentesco parentesco_pai
+     INNER JOIN responsavel ON responsavel.id = parentesco_pai.id_responsavel     
+    ) As parentesco, 
 
-WHERE aluno.id = 1;
+    (SELECT MIN(mae.nome) 
+    FROM responsavel mae
+    INNER JOIN parentesco mae_parentesco ON mae_parentesco.id_responsavel = mae.id
+    ) AS responsavel,
+
+    (SELECT MIN(parentesco_mae.parentesco)
+    FROM parentesco parentesco_mae
+    INNER JOIN responsavel ON responsavel.id = parentesco_mae.id_responsavel
+    ) As parentesco
+
+FROM aluno
+WHERE aluno.id = 1
 
 
 
