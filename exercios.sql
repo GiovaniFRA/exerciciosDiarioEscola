@@ -59,9 +59,6 @@ FROM ALUNO
 INNER JOIN parentesco ON parentesco.id_aluno = aluno.id
 INNER JOIN responsavel p1 ON parentesco.id_responsavel = p1.id
 
-INNER JOIN parentesco pa2 ON pa2.id_aluno = aluno.id AND pa2.id_responsavel != p1.id
-INNER JOIN responsavel ON parentesco.id_responsavel = responsavel.id and responsavel.id != p1.id
-
 WHERE aluno.id = 1;
 
 
